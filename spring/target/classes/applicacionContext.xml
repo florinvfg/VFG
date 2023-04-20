@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        ">
+     <!--Además del código estandar anterior, ahora debemos añadir los bean que queramos crear, cada uno de ellos tiene que tener su propio identificador y la clase padre que va a generar los objetos. La  clase no puede ser abstracta ni una Interfaz. El bean y el detalle se deben escribir antes del cierre de </beans> como en el siguiente ejemplo-->
+    <bean id="miEmpleado" class="com.spring.spring.JefeEmpleado">//el parametro class debe señalar el paquete donde se encuentre nuestra clase
+  	<!--La siguiente linea es el cierre del bean nuevo que hemos creado*/-->
+<!--La siguiente linea es el cierre del beans general*/-->
+<!--7.3 Creamos la dependencia añadiendo un nuevo bean con id y clase que construye Documentos, en este caso Documentos -->
+    <bean id="miDocumento" class="com.spring.spring.Documento"> </bean>
+ <bean id="miEmpleado" class="com.spring.spring.EmpleadoDirector">
+    <!--7.3 Configurar la dependencia en cada objeto. Creamos un constructor-arg con referencia al id de la dependencia que necesitemos-->
+        <constructor-arg ref="miDocumento"></constructor-arg>
+    </bean>
+ <!-- 7.B.3 Creamos un bean para inyección de dependencias con un SETTER-->
+    <bean id="EmpleadoDirector" class="com.spring.spring.EmpleadoDirector">
+        <!-- importante que el porperty name  debe ser exactamente igual que -->
+        <property name="documentoNuevo" ref="miDocumento"></property>
+    </bean>
+ <bean id="EmpleadoDirector" class="com.spring.spring.EmpleadoDirector">
+        <property name="documentoNuevo" ref="miDocumento"></property>
+        <!-- 7.C.3 Creamos las propertys de los nuevos campos -->
+        <property name="emailDepartamental" value="directores@pruebas.es"></property>
+        <property name="empresa" value="EMPRERSA PRUEBAS"></property>
+    </bean>
+<context:property-placeholder location="classpath:datosImportantes.propiedades"/>
+
+
+</beans>
